@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CC Fraud Graphing</title>
+        <link rel="stylesheet" href="../static/graph.css">
+    </head>
+
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+        <div class="graph-container">
+            <canvas id="line-chart" class="chart" width="1000" height="1000"></canvas>
+        </div>
+
+        <script>
+            new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: {{dataRange}},
+                    datasets: [{ 
+                        data: {{dataPoints}},
+                        label: "Money",
+                        borderColor: "#FFD700",
+                        fill: true
+                    }]
+                },
+                options: {
+                    title: {
+                        text: 'World population per region (in millions)',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false,
+                                maxHeight: 1,
+                                maxWidth: 1,
+                                position: "bottom"
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
