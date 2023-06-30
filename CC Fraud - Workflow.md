@@ -66,7 +66,10 @@ Note, these models were being trained with all the available features, and the h
 |criterion:entropy splitter:best max_depth:9|99.781|86.525|84.031|85.233|
 |criterion:log_loss splitter:best max_depth:9|99.781|86.525|84.031|85.233|
 
-Accuracy is bias, due to an imbalance of classes in the dataset.
+- `Accuracy` - Accuracy is the amount of times the model predicts the testing dataset correct, however it can be bias due to class imbalance, which I explain in more detail in the consensus (the end).
+- `Precision` - Precision is calculated by the model's false positives. A higher precision indicates a lower number of false positives. This is good as it doesn't fail due to class imbalance.
+- `Recall` - Recall is calculated by model's chance of avoiding false negatives.
+- `F1` - `F1` score is a consensus score based on both precision and recall. The `F1` score ranges between `0` and `1,` `1` being the highest performant model and `0` being the lowest performant value.
 
 This was okay, but we could take further steps to try improve the classification performance of the model.
 
