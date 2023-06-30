@@ -20,8 +20,6 @@ def is_fraud(amount: float, category: float, dob: float, gender: float):        
 
     df = pd.DataFrame([[ amount, category, dob, gender ]], columns = headers)
 
-    print(getClassifier().predict(df))
-
     return getClassifier().predict(df)[0] == 1
 
 
@@ -33,7 +31,7 @@ def get_valid_format(amount, category, dob, gender):
 
 
 def get_graph_points(start, end, category, gender, dob):
-    amounts = [x for x in np.linspace(start, end, 30)]
+    amounts = [x for x in np.linspace(start, end, 100)]
     category_int = getLabelEncoders()["category"].transform([category])
     dob_int = dob.replace("-", "")
     gender_int = getLabelEncoders()["gender"].transform([gender])

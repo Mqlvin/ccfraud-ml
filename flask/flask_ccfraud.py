@@ -42,8 +42,8 @@ def graphPage():
                             )
 
     try:
-        outcomes_male = get_graph_points(0, 2000, category_input, "F", dob_input)    
-        outcomes_female = get_graph_points(0, 2000, category_input, "M", dob_input)    
+        outcomes_male = get_graph_points(200, 1000, category_input, "F", dob_input)    
+        outcomes_female = get_graph_points(200, 1000, category_input, "M", dob_input)    
     except Exception as e:
         error = "Internal error<br>" + str(e)
 
