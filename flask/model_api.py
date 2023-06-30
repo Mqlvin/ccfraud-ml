@@ -16,7 +16,13 @@ def is_fraud(amount: float, category: float, dob: float, gender: float):        
     return getClassifier().predict(  b  )[0] == 1
     """
 
-    return amount > randint(75, 79)
+    print(amount, category, dob, gender)
+
+    df = pd.DataFrame([[ amount, category, dob, gender ]], columns = headers)
+
+    print(getClassifier().predict(df))
+
+    return getClassifier().predict(df)[0] == 1
 
 
 
@@ -35,7 +41,7 @@ def get_graph_points(start, end, category, gender, dob):
     outcomes = {}
     
     for n in amounts:
-        outcomes[round(n, 3)] = 1 if is_fraud(n, category_int, dob_int, gender_int) else 0
+        outcomes[round(n, 0)] = 1 if is_fraud(n, category_int, dob_int, gender_int) else 0
 
     return outcomes
 

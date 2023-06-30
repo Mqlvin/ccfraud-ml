@@ -9,13 +9,62 @@ app = Flask(__name__, static_folder = "static", template_folder = "templates")
 
 
 
-@app.route("/graph/")
+@app.route("/graph/", methods = ["GET", "POST"])
 def graphPage():
-    outcomes = get_graph_points(0, 150, "health_fitness", "F", "1930-06-12")
+    if request.method == "GET":
+        return render_template("graph.html",
+                               dataRange = [0],
+                               dataPoints = [0],
+                               entered_value_category = "",
+                               entered_value_dob = "",
+                               entered_value_gender = "",
+                               error_msg = ""
+                            )
 
-    print(str(list(outcomes.keys())))
+    error = ""
 
-    return render_template("graph.html", dataRange = str(list(outcomes.keys())), dataPoints = str(list(outcomes.values())))
+    # otherwise method must be POST
+    category_input = request.form.get("textarea-category").lower()
+    dob_input = request.form.get("textarea-dob")
+    
+    if category_input == "":
+        error = "Provide a category input"
+    elif dob_input == "":
+        error = "Provide a date of birth input"
+    
+    if error != "":
+        return render_template("graph.html",
+                               dataRange = [0],
+                               dataPoints = [0],
+                               entered_value_category = category_input,
+                               entered_value_dob = dob_input,
+                               error_msg = error
+                            )
+
+    try:
+        outcomes_male = get_graph_points(0, 2000, category_input, "F", dob_input)    
+        outcomes_female = get_graph_points(0, 2000, category_input, "M", dob_input)    
+    except Exception as e:
+        error = "Internal error<br>" + str(e)
+
+    return render_template("graph.html",
+                               dataRange = str(list(outcomes_male.keys())),
+                               dataPointsMale = str(list(outcomes_male.values())),
+                               dataPointsFemale = str(list(outcomes_female.values())),
+                               entered_value_category = category_input,
+                               entered_value_dob = dob_input,
+                               error_msg = error
+                            )
+
+
+
+
+
+
+
+
+
+
 
 
 # api/fraud?dob=1920-08-4&category=health_fitness&gender=F&amount=80
@@ -53,6 +102,17 @@ def apiNoParam():
 
 
 
+@app.route("/steps", strict_slashes = False)
+def stepsError():
+    return render_template("steps.html", img = "", msg = "Edit URL to be `/steps/limited` or `/steps/unlimited`")
+
+@app.route("/steps/<mode>", strict_slashes = False)
+def stepsSvg(mode):
+    if mode == "unlimited":
+        return render_template("steps.html", img = "../static/steps-unlimited.svg")
+    else:
+        return render_template("steps.html", img = "../static/steps-limited.svg")
+    
 
 
 

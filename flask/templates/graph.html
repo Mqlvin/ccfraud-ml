@@ -8,31 +8,48 @@
 
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <div class="graph-center">
+            <div class="graph-container">
+                <canvas id="line-chart" class="chart" width="1000" height="1000"></canvas>
+            </div>
 
-        <div class="graph-container">
-            <canvas id="line-chart" class="chart" width="1000" height="1000"></canvas>
+            <form method="POST" class="form">
+                <input type="text" name="textarea-category" placeholder="misc_net" class="form-box" value="{{entered_value_category}}">
+                <input type="text" name="textarea-dob" placeholder="1958-09-10" class="form-box" value="{{entered_value_dob}}">
+                <input type="submit" value="View Graph" class="form-button">
+                <p class="error">{{error_msg}}</p>
+            </form>
         </div>
+        
 
         <script>
             new Chart(document.getElementById("line-chart"), {
                 type: 'line',
                 data: {
                     labels: {{dataRange}},
-                    datasets: [{ 
-                        data: {{dataPoints}},
-                        label: "Money",
-                        borderColor: "#FFD700",
+                    datasets: [
+                    { 
+                        data: {{dataPointsFemale}},
+                        label: "Female",
+                        borderColor: "#f678a7",
                         fill: true
-                    }]
+                    },
+                    { 
+                        data: {{dataPointsMale}},
+                        label: "Male",
+                        borderColor: "#62aec5",
+                        fill: true
+                    }
+                ]
                 },
                 options: {
                     title: {
-                        text: 'World population per region (in millions)',
+                        text: 'Money spent to determine if fraud',
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
                             legend: {
-                                display: false,
+                                display: true,
                                 maxHeight: 1,
                                 maxWidth: 1,
                                 position: "bottom"
