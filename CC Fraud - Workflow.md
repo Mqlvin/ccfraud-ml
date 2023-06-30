@@ -1,22 +1,22 @@
 ### Prerequisites
 
-First, the dataset is downloaded an extracted.
-Using `Jupyter Notebooks`, I can load the dataset into an array using `pandas` function `read_csv`
+First, the dataset is downloaded and extracted.
+Using `Jupyter Notebooks`, I can load the dataset into an dataframe using `pandas` function `read_csv`
 I then loop through the features in the file and see what's available.
 
 `['#', 'trans_date_trans_time', 'cc_num', 'merchant', 'category', 'amt', 'first', 'last', 'gender', 'street', 'city', 'state', 'zip', 'lat', 'long', 'city_pop', 'job', 'dob', 'trans_num', 'unix_time', 'merch_lat', 'merch_long', 'is_fraud']`
 
-Here are the 23 header. To start off, we attempt to train a decision tree with all parameters.
-We correctly identify `is_fraud` as target classes, so we remove that parameter from the dataset, leaving us with 22 features.
+These is the 23 headers. To start off, we will attempt to train a decision tree with all parameters.
+We correctly identify `is_fraud` as the target classes, so we remove that feature from the dataset, leaving us with 22 features.
 
-I wrap this in a nice function, returning the `DataFrame` loaded by `pandas`, and the feature names for the data and target.
+I wrap this loading in a function, returning the `DataFrame` loaded by `pandas`, and the feature names for the data and target.
 
 
 
 ### Handling data formatting
 
 Next, we have to ensure all items are of a number type (e.g. `float` or `integer`).
-To do this, we have to transform features of other types to integers. In most cases, this means converting categorical data into a set of unique integers and their category (so each category is given a single unique integer). To do this, we can use a class in `sklearn.preprocessing` called `LabelEncoder`. This class has a `.fit()` method which takes all the values of a feature in the *training* dataset. Now the set of `<unique integers, categories>` have been made, you can use the `.transform()` method to create a new array of integers for a specific category, based on what the `LabelEncoder` has assigned a category, e.g...
+To do this, we have to transform features of other types to integers. In most cases, this means converting categorical data into a set of unique integers and their category (so each element in a category is given a single unique integer). To do this, we can use a class in `sklearn.preprocessing` called `LabelEncoder`. This class has a `.fit()` method which takes all the values of a feature in the *training* dataset. Now the set of `<unique integers, categories>` have been made, you can use the `.transform()` method to create a new array of integers for a specific category, based on what the `LabelEncoder` has assigned a category, e.g...
 
 The default categorical data is:
 `["Farmer", "Baker", "Shopkeeper", "Baker", "Pilot"]`
